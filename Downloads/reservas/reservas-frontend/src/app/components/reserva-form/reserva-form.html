@@ -1,0 +1,93 @@
+<div class="form-wrapper card-animate">
+  <mat-card class="card-container">
+    <mat-card-header class="card-header">
+      <mat-icon class="header-icon" [class.icon-edit]="editando">{{ editando ? 'edit_note' : 'add_circle_outline' }}</mat-icon>
+      <div>
+        <mat-card-title>{{ editando ? 'Editar Reserva' : 'Nova Reserva' }}</mat-card-title>
+        <mat-card-subtitle>{{ editando ? 'Atualize os dados da reserva' : 'Preencha os dados para criar uma nova reserva' }}</mat-card-subtitle>
+      </div>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="salvar()" class="form-grid">
+
+        <mat-form-field appearance="outline">
+          <mat-label>Nome do Cliente</mat-label>
+          <mat-icon matPrefix>person</mat-icon>
+          <input matInput formControlName="nomeCliente" placeholder="Nome completo">
+          @if (form.get('nomeCliente')?.hasError('required') && form.get('nomeCliente')?.touched) {
+            <mat-error>Nome é obrigatório</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>E-mail</mat-label>
+          <mat-icon matPrefix>email</mat-icon>
+          <input matInput formControlName="emailCliente" type="email" placeholder="email@exemplo.com">
+          @if (form.get('emailCliente')?.hasError('required') && form.get('emailCliente')?.touched) {
+            <mat-error>E-mail é obrigatório</mat-error>
+          }
+          @if (form.get('emailCliente')?.hasError('email') && form.get('emailCliente')?.touched) {
+            <mat-error>E-mail inválido</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Data de Check-in</mat-label>
+          <mat-icon matPrefix>login</mat-icon>
+          <input matInput [matDatepicker]="pickerIn" formControlName="dataCheckIn" [min]="hoje">
+          <mat-datepicker-toggle matIconSuffix [for]="pickerIn" />
+          <mat-datepicker #pickerIn />
+          @if (form.get('dataCheckIn')?.hasError('required') && form.get('dataCheckIn')?.touched) {
+            <mat-error>Data de check-in é obrigatória</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Data de Check-out</mat-label>
+          <mat-icon matPrefix>logout</mat-icon>
+          <input matInput [matDatepicker]="pickerOut" formControlName="dataCheckOut" [min]="hoje">
+          <mat-datepicker-toggle matIconSuffix [for]="pickerOut" />
+          <mat-datepicker #pickerOut />
+          @if (form.get('dataCheckOut')?.hasError('required') && form.get('dataCheckOut')?.touched) {
+            <mat-error>Data de check-out é obrigatória</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Quantidade de Pessoas</mat-label>
+          <mat-icon matPrefix>group</mat-icon>
+          <input matInput type="number" formControlName="quantidadePessoas" min="1">
+          @if (form.get('quantidadePessoas')?.hasError('min') && form.get('quantidadePessoas')?.touched) {
+            <mat-error>Mínimo 1 pessoa</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Observações</mat-label>
+          <mat-icon matPrefix>notes</mat-icon>
+          <textarea matInput formControlName="observacoes" rows="3" placeholder="Informações adicionais..."></textarea>
+        </mat-form-field>
+
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions class="card-actions">
+      <button mat-stroked-button type="button" (click)="cancelar()" class="btn-cancelar">
+        <mat-icon>arrow_back</mat-icon> Cancelar
+      </button>
+      <button mat-raised-button color="primary" type="button" (click)="salvar()"
+              [disabled]="salvando" class="btn-salvar">
+        @if (salvando) {
+          <mat-spinner diameter="18" class="btn-spinner" />
+          Salvando...
+        } @else {
+          <ng-container>
+            <mat-icon>{{ editando ? 'save' : 'add_circle' }}</mat-icon>
+            {{ editando ? 'Atualizar' : 'Criar Reserva' }}
+          </ng-container>
+        }
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

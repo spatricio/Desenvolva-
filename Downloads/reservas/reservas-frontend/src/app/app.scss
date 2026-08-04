@@ -1,0 +1,65 @@
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+
+  .toolbar-icon {
+    margin-right: 8px;
+    font-size: 1.4rem;
+  }
+
+  .toolbar-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  .nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: 4px;
+  }
+
+  .new-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: 12px;
+  }
+
+  .toolbar-divider {
+    width: 1px;
+    height: 24px;
+    background: rgba(255,255,255,0.25);
+    margin: 0 12px;
+  }
+
+  .usuario-nome {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.875rem;
+    opacity: 0.92;
+  }
+
+  .btn-logout {
+    margin-left: 4px;
+  }
+
+  @media (max-width: 480px) {
+    .nav-label { display: none; }
+    .toolbar-divider { display: none; }
+  }
+}
+
+.main-content {
+  max-width: 1200px;
+  margin: 32px auto;
+  padding: 0 16px;
+}
