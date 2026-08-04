@@ -1,0 +1,107 @@
+<div class="lista-wrapper card-animate">
+  <mat-card class="card-container">
+    <mat-card-header class="card-header">
+      <div class="header-left">
+        <mat-icon class="header-icon">event_note</mat-icon>
+        <div>
+          <mat-card-title>Reservas</mat-card-title>
+          <mat-card-subtitle>{{ reservas.length }} registro(s) encontrado(s)</mat-card-subtitle>
+        </div>
+      </div>
+      <button mat-raised-button color="primary" routerLink="/reservas/nova" class="header-btn">
+        <mat-icon>add</mat-icon> Nova Reserva
+      </button>
+    </mat-card-header>
+
+  <mat-card-content>
+    @if (carregando) {
+      <div class="spinner-container">
+        <mat-spinner diameter="48" />
+        <p class="loading-text">Carregando reservas...</p>
+      </div>
+    } @else if (reservas.length === 0) {
+      <div class="empty-state">
+        <mat-icon class="empty-icon">event_busy</mat-icon>
+        <p class="empty-title">Nenhuma reserva encontrada</p>
+        <p class="empty-sub">Comece criando a primeira reserva do sistema.</p>
+        <button mat-raised-button color="primary" routerLink="/reservas/nova">
+          <mat-icon>add</mat-icon> Criar Reserva
+        </button>
+      </div>
+    } @else {
+      <div class="table-container">
+        <table mat-table [dataSource]="reservas" class="reservas-table mat-elevation-z1">
+
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef class="col-id">#</th>
+            <td mat-cell *matCellDef="let r" class="col-id">{{ r.id }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="nomeCliente">
+            <th mat-header-cell *matHeaderCellDef>Cliente</th>
+            <td mat-cell *matCellDef="let r">
+              <div class="cell-cliente">
+                <div class="avatar">{{ r.nomeCliente[0].toUpperCase() }}</div>
+                <div>
+                  <div class="cliente-nome">{{ r.nomeCliente }}</div>
+                  <div class="cliente-email">{{ r.emailCliente }}</div>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="emailCliente">
+            <th mat-header-cell *matHeaderCellDef>E-mail</th>
+            <td mat-cell *matCellDef="let r">{{ r.emailCliente }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="dataCheckIn">
+            <th mat-header-cell *matHeaderCellDef>Check-in</th>
+            <td mat-cell *matCellDef="let r">
+              <div class="data-cell">
+                <mat-icon class="data-icon">login</mat-icon>
+                {{ r.dataCheckIn | date:'dd/MM/yyyy' }}
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="dataCheckOut">
+            <th mat-header-cell *matHeaderCellDef>Check-out</th>
+            <td mat-cell *matCellDef="let r">
+              <div class="data-cell">
+                <mat-icon class="data-icon">logout</mat-icon>
+                {{ r.dataCheckOut | date:'dd/MM/yyyy' }}
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="quantidadePessoas">
+            <th mat-header-cell *matHeaderCellDef>Pessoas</th>
+            <td mat-cell *matCellDef="let r">
+              <span class="pessoas-chip">
+                <mat-icon class="chip-icon">group</mat-icon>
+                {{ r.quantidadePessoas }}
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="acoes">
+            <th mat-header-cell *matHeaderCellDef>Ações</th>
+            <td mat-cell *matCellDef="let r" class="acoes-cell">
+              <button mat-icon-button color="primary" (click)="editar(r.id!)" matTooltip="Editar reserva">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="remover(r.id!, r.nomeCliente)" matTooltip="Remover reserva">
+                <mat-icon>delete_outline</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="colunas"></tr>
+          <tr mat-row *matRowDef="let row; columns: colunas;" class="table-row"></tr>
+        </table>
+      </div>
+    }
+  </mat-card-content>
+  </mat-card>
+</div>

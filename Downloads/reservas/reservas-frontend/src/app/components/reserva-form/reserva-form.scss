@@ -1,0 +1,73 @@
+.form-wrapper {
+  width: 100%;
+}
+
+.card-container {
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 24px 8px;
+
+  .header-icon {
+    font-size: 2.2rem;
+    width: 2.2rem;
+    height: 2.2rem;
+    color: var(--mat-sys-primary);
+
+    &.icon-edit {
+      color: var(--mat-sys-tertiary);
+    }
+  }
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 16px 0 4px;
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  .full-width {
+    grid-column: 1 / -1;
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 8px 16px 16px;
+  gap: 10px;
+
+  .btn-cancelar {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .btn-salvar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 150px;
+    justify-content: center;
+
+    .btn-spinner {
+      display: inline-flex;
+    }
+  }
+}

@@ -1,0 +1,70 @@
+<div class="login-page">
+  <div class="login-bg"></div>
+
+  <mat-card class="login-card card-animate">
+    <div class="logo-area">
+      <div class="logo-circle">
+        <mat-icon>hotel</mat-icon>
+      </div>
+      <h1 class="sistema-nome">Sistema de Reservas</h1>
+      <p class="sistema-sub">Faça login para continuar</p>
+    </div>
+
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="entrar()" class="login-form">
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Usuário</mat-label>
+          <mat-icon matPrefix>person</mat-icon>
+          <input matInput formControlName="usuario" placeholder="Digite seu usuário" autocomplete="username">
+          @if (form.get('usuario')?.hasError('required') && form.get('usuario')?.touched) {
+            <mat-error>Usuário é obrigatório</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Senha</mat-label>
+          <mat-icon matPrefix>lock</mat-icon>
+          <input matInput formControlName="senha"
+                 [type]="senhaVisivel ? 'text' : 'password'"
+                 placeholder="Digite sua senha"
+                 autocomplete="current-password">
+          <button mat-icon-button matSuffix type="button"
+                  (click)="toggleSenha()"
+                  [attr.aria-label]="senhaVisivel ? 'Ocultar senha' : 'Mostrar senha'">
+            <mat-icon>{{ senhaVisivel ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          @if (form.get('senha')?.hasError('required') && form.get('senha')?.touched) {
+            <mat-error>Senha é obrigatória</mat-error>
+          }
+        </mat-form-field>
+
+        @if (erroLogin) {
+          <div class="erro-login">
+            <mat-icon>error_outline</mat-icon>
+            <span>Usuário ou senha inválidos</span>
+          </div>
+        }
+
+        <button mat-raised-button color="primary" type="submit"
+                class="btn-entrar" [disabled]="carregando">
+          @if (carregando) {
+            <mat-spinner diameter="20" class="btn-spinner" />
+            Entrando...
+          } @else {
+            <ng-container>
+              <mat-icon>login</mat-icon>
+              Entrar
+            </ng-container>
+          }
+        </button>
+
+      </form>
+    </mat-card-content>
+
+    <div class="login-hint">
+      <mat-icon>info_outline</mat-icon>
+      <span>admin / admin123 &nbsp;·&nbsp; recepcao / recepcao123</span>
+    </div>
+  </mat-card>
+</div>

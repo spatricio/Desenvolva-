@@ -1,0 +1,27 @@
+@if (!estaNoLogin && auth.isLoggedIn()) {
+  <mat-toolbar color="primary" class="toolbar">
+    <mat-icon class="toolbar-icon">hotel</mat-icon>
+    <span class="toolbar-title">Sistema de Reservas</span>
+    <span class="spacer"></span>
+    <button mat-button class="nav-btn" routerLink="/reservas">
+      <mat-icon>list_alt</mat-icon>
+      <span class="nav-label">Reservas</span>
+    </button>
+    <button mat-raised-button color="accent" class="new-btn" routerLink="/reservas/nova">
+      <mat-icon>add</mat-icon>
+      <span class="nav-label">Nova Reserva</span>
+    </button>
+    <div class="toolbar-divider"></div>
+    <span class="usuario-nome" matTooltip="Usuário logado">
+      <mat-icon>account_circle</mat-icon>
+      <span class="nav-label">{{ auth.getUsuario() }}</span>
+    </span>
+    <button mat-icon-button (click)="logout()" matTooltip="Sair" class="btn-logout">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </mat-toolbar>
+}
+
+<div [class.main-content]="!estaNoLogin">
+  <router-outlet />
+</div>
