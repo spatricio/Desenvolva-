@@ -1,6 +1,0 @@
-com\reservas\reserva\controller\ReservaController.class
-com\reservas\reserva\repository\ReservaRepository.class
-com\reservas\reserva\model\Reserva.class
-com\reservas\ReservasApplication.class
-com\reservas\reserva\dto\ReservaRequest.class
-com\reservas\reserva\service\ReservaService.class
